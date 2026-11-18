@@ -36,7 +36,13 @@ export class AppComponent {
     this.query = new Query().addParams('dataCount', '100000');
     this.filterSettings = { type: 'CheckBox' };
     this.pageSettings = { pageSize: 100, pageSizes: ["100", "500", "1000"] };
-    this.domVirtualizationSettings = { rowBuffer: 10, autoRowHeight: true };
+    this.domVirtualizationSettings = { rowBuffer: 10, autoRowHeight: false };
+  }
+
+  public setRowHeight(row: { data: { Address?: string | null } }): number {
+    const addressLength = row.data.Address?.length ?? 0;
+    const additionalLines = Math.floor(addressLength / 20);
+    return 50 + additionalLines * 25;
   }
 
   public softwareValue(args: any): number {
